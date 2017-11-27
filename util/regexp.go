@@ -18,7 +18,11 @@ func init() {
 }
 
 // IsEmail 验证是否是电子邮件
+// 加上了字数限制
 func IsEmail(s string) bool {
+	if len([]rune(s)) > 128 {
+		return false
+	}
 	return emailRegExp.MatchString(s)
 }
 
