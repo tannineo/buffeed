@@ -1,7 +1,6 @@
 package model_test
 
 import (
-	"os"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -14,9 +13,7 @@ func TestInitDB(t *testing.T) {
 
 		// 删db
 		Reset(func() {
-			if _, err := os.Stat("data.db"); err == nil {
-				os.Remove("data.db")
-			}
+			model.TearDownDB()
 		})
 	})
 }

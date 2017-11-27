@@ -1,18 +1,22 @@
 package model
 
 import (
+	"os"
 	"time"
 
 	"github.com/go-xorm/xorm"
 	_ "github.com/mattn/go-sqlite3" // go-sqlite3 注册sqlite3到sql
 )
 
+// TODO: 优化db path 区分正式测试 单元测试进行时
+const dbPath = "data.db"
+
 // Engine 数据库连接engine
 var engine *xorm.Engine
 
 func init() {
 	var err error
-	engine, err = xorm.NewEngine("sqlite3", "data.db") // 优化db path
+	engine, err = xorm.NewEngine("sqlite3", dbPath)
 	if err != nil {
 		// TODO: logging
 		panic(err)
@@ -90,3 +94,11 @@ CREATE TABLE IF NOT EXISTS 'tag' (
   'updated' datetime NOT NULL
 );
 `
+
+// TearDownDB 直接销毁db 测试用
+// 危险 DANGER 危险 DANGER
+func TearDownDB() {
+	if _, err := os.Stat(dbPath); err == nil {
+		os.Remove(dbPath)
+	}
+}
