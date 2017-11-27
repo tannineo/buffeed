@@ -15,3 +15,6 @@
 
 # Run `dep ensure` to have your vendor
 vendor
+
+# Sqlite3 db
+data.db
