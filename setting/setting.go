@@ -10,5 +10,5 @@ var Config = struct {
 
 func init() {
 	// TODO: 如何仅靠代码 区分测试正式环境? 运行测试时?
-	configor.Load(&Config, "config_test.json")
+	configor.Load(&Config, "config.json")
 }

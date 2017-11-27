@@ -21,6 +21,10 @@ func init() {
 		// TODO: logging
 		panic(err)
 	}
+	engine.Sync2(new(User))
+	engine.Sync2(new(Sub))
+	engine.Sync2(new(Brief))
+	engine.Sync2(new(Tag))
 }
 
 // BasicMeta 基础元信息

@@ -14,5 +14,5 @@ type Sub struct {
 
 	LastFetch time.Time `xorm:"'last_fetch'"` // LastFetch 最后一次更新
 
-	BasicMeta
+	BasicMeta `xorm:"extends"`
 }

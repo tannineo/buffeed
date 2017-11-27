@@ -9,5 +9,5 @@ type Brief struct {
 	Title   string `xorm:"varchar(64) 'title'"`    // Name nickname 昵称
 	Article string `xorm:"varchar(128) 'article'"` // Email 邮件地址
 
-	BasicMeta
+	BasicMeta `xorm:"extends"`
 }

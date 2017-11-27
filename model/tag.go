@@ -10,5 +10,5 @@ type Tag struct {
 
 	TagName string `xorm:"varchar(64) 'tag_name'"` // TagName tag名
 
-	BasicMeta
+	BasicMeta `xorm:"extends"`
 }
