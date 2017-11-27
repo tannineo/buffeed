@@ -44,3 +44,24 @@ func TestIsPwd(t *testing.T) {
 		})
 	}
 }
+
+var nicknameTestCases = []struct {
+	testcase string
+	is       string
+	result   bool
+}{
+	{"fizzBuzz@gmail.com", " is not", false},
+	{"foobar2000", " is", true},
+	{"no#@O!UBD!Da", " is not", false},
+	{"2333_wysiwyg", " is", true},
+	{"2333_wysiwyg2333_wysiwyg", " is not", false},
+	{"_", " is", true},
+}
+
+func TestIsNickname(t *testing.T) {
+	for _, tc := range nicknameTestCases {
+		Convey(tc.testcase+tc.is+" a valid nickname.", t, func() {
+			So(util.IsNickname(tc.testcase), ShouldEqual, tc.result)
+		})
+	}
+}
