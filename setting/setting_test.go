@@ -9,6 +9,7 @@ import (
 
 func TestConfig(t *testing.T) {
 	Convey("Config read from config.json", t, func() {
-		So(setting.Config.Port, ShouldEqual, 8080)
+		So(setting.Config.Port, ShouldEqual, 4000)
+		So(setting.Config.Salt, ShouldEqual, "")
 	})
 }
