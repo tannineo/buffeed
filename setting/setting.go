@@ -6,7 +6,7 @@ import "github.com/jinzhu/configor"
 var Config = struct {
 	Port     uint   `default:"4000"`
 	Salt     string `default:""`
-	DataPath string `default:"/Users/carychan/Code/go/src/github.com/tannineo/buffeed/data.db"`
+	DataPath string `default:"data.db"`
 }{}
 
 func init() {
