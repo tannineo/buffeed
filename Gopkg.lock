@@ -2,6 +2,48 @@
 
 
 [[projects]]
+  name = "github.com/BurntSushi/toml"
+  packages = ["."]
+  revision = "b26d9c308763d68093482582cea63d69be07a0f0"
+  version = "v0.3.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/go-xorm/builder"
+  packages = ["."]
+  revision = "a4a881a4e552fcb5473f39e8b9f7d9f3457a7fb0"
+
+[[projects]]
+  name = "github.com/go-xorm/core"
+  packages = ["."]
+  revision = "da1adaf7a28ca792961721a34e6e04945200c890"
+  version = "v0.5.7"
+
+[[projects]]
+  name = "github.com/go-xorm/xorm"
+  packages = ["."]
+  revision = "d7f04c3cecff8d8c9321b2c39940e1992ce9f01a"
+  version = "v0.6.3"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/gopherjs/gopherjs"
+  packages = ["js"]
+  revision = "444abdf920945de5d4a977b572bcc6c674d1e4eb"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/jinzhu/configor"
+  packages = ["."]
+  revision = "6ecfe629230f24c2e92c7894c6ab21b83b757a39"
+
+[[projects]]
+  name = "github.com/jtolds/gls"
+  packages = ["."]
+  revision = "77f18212c9c7edc9bd6a33d383a7b545ce62f064"
+  version = "v4.2.1"
+
+[[projects]]
   name = "github.com/labstack/echo"
   packages = ["."]
   revision = "0473c51f1dbd83487effce00702571d19033a6e5"
@@ -26,6 +68,24 @@
   version = "v0.0.3"
 
 [[projects]]
+  name = "github.com/mattn/go-sqlite3"
+  packages = ["."]
+  revision = "ed69081a91fd053f17672236b0dd52ba7485e1a3"
+  version = "v1.4.0"
+
+[[projects]]
+  name = "github.com/smartystreets/assertions"
+  packages = [".","internal/go-render/render","internal/oglematchers"]
+  revision = "ff1918e1e5a13a74014644ae7c1e0ba2f791364d"
+  version = "1.8.0"
+
+[[projects]]
+  name = "github.com/smartystreets/goconvey"
+  packages = ["convey","convey/gotest","convey/reporting"]
+  revision = "9e8dc3f972df6c8fcc0375ef492c24d0bb204857"
+  version = "1.6.3"
+
+[[projects]]
   branch = "master"
   name = "github.com/valyala/bytebufferpool"
   packages = ["."]
@@ -45,13 +105,25 @@
 
 [[projects]]
   branch = "master"
+  name = "golang.org/x/net"
+  packages = ["context"]
+  revision = "fc492d2e106922eb3aa4bca863d55e882c087ae3"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
   revision = "4ff8c001ce4cc464e644b922325097228fce14d8"
 
+[[projects]]
+  branch = "v2"
+  name = "gopkg.in/yaml.v2"
+  packages = ["."]
+  revision = "287cf08546ab5e7e37d55a84f7ed3fd1db036de5"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "bc7ec61078245420124a9157b3fa61f94b5a71f48b67d2529bbfc8fa2dcb04b9"
+  inputs-digest = "ec29f9bf4db353f2002783b4fb6a07fd262e392cae9fcbf3e03e1ec90383a9fe"
   solver-name = "gps-cdcl"
   solver-version = 1

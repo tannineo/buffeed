@@ -24,3 +24,19 @@
 [[constraint]]
   name = "github.com/labstack/echo"
   version = "3.2.5"
+
+[[constraint]]
+  name = "github.com/go-xorm/xorm"
+  version = "v0.6.3"
+
+[[constraint]]
+  name = "github.com/mattn/go-sqlite3"
+  version = "v1.4.0"
+
+[[constraint]]
+  name = "github.com/smartystreets/goconvey"
+  version = "1.6.3"
+
+[[constraint]]
+  name = "github.com/jinzhu/configor"
+  branch = "master"
