@@ -3,6 +3,7 @@ package control
 import (
 	"errors"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo"
 	"github.com/labstack/gommon/log"
@@ -49,4 +50,13 @@ func UserCreateUser(c echo.Context) (err error) {
 	}
 
 	return c.String(http.StatusOK, "OK")
+}
+
+// UserGetUserCount 获取用户总数
+func UserGetUserCount(c echo.Context) (err error) {
+	var count = 0
+	if count, err = model.CountUsers(); err != nil {
+		return
+	}
+	return c.String(http.StatusOK, strconv.Itoa(count))
 }

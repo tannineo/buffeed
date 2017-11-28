@@ -63,21 +63,27 @@ func (u *User) InsertIn() (err error) {
 
 // CountUsers 未删除的用户数
 func CountUsers() (int, error) {
-	user := new(User)
-	count, err := engine.Count(user)
+	count, err := engine.Count(new(User))
 	return int(count), err
 }
 
-// GetUserByID 根据id获取用户
-func (u *User) GetUserByID() (has bool, err error) {
+// GetUser 根据user中的条件获取用户
+func (u *User) GetUser() (has bool, err error) {
 	has, err = engine.Get(u)
 	return
 }
 
-// GetUserByName 根据名称获取用户
-
-// GetUserByEmail 根据email获取用户
-
 // DeleteUserByID 根据id软删除用户
+// 因为删除是个较危险的操作(哪怕是软删除) 会置空其他条件使用id
+func (u *User) DeleteUserByID() (int, error) {
+	affected, err := engine.Id(u.ID).Delete(u)
+	// TODO: affected row 强转 int 在很多很多很多很多...行时会出bug...?
+	// 其他也是同理
+	return int(affected), err
+}
 
 // ModifyUserByID 根据id修改用户
+func (u *User) ModifyUserByID() (int, error) {
+	affected, err := engine.Id(u.ID).Update(u)
+	return int(affected), err
+}

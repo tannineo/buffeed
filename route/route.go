@@ -14,5 +14,6 @@ func Route(e *echo.Echo) {
 	// 首页
 	// 用户
 	e.POST("/user/new", control.UserCreateUser)
+	e.GET("/user/count", control.UserGetUserCount)
 	// feed
 }

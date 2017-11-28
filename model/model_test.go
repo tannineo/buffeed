@@ -7,7 +7,17 @@ import (
 	"github.com/tannineo/buffeed/model"
 )
 
-func TestInitDB(t *testing.T) {
+func TestMain(m *testing.M) {
+	// before
+
+	// run test
+	m.Run()
+
+	// after
+	model.TearDownDB()
+}
+
+func Test_InitDB(t *testing.T) {
 	Convey("InitDB...", t, func() {
 		So(model.InitDB(), ShouldBeNil)
 
