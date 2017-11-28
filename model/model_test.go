@@ -1,6 +1,7 @@
 package model_test
 
 import (
+	"os"
 	"testing"
 
 	. "github.com/smartystreets/goconvey/convey"
@@ -11,10 +12,13 @@ func TestMain(m *testing.M) {
 	// before
 
 	// run test
-	m.Run()
+	result := m.Run()
 
 	// after
 	model.TearDownDB()
+
+	// end
+	os.Exit(result)
 }
 
 func Test_InitDB(t *testing.T) {

@@ -2,6 +2,7 @@ package control
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -59,4 +60,23 @@ func UserGetUserCount(c echo.Context) (err error) {
 		return
 	}
 	return c.String(http.StatusOK, strconv.Itoa(count))
+}
+
+// UserGetUserByName 获取用户简介
+func UserGetUserByName(c echo.Context) (err error) {
+	name := c.Param("name")
+	userInfo := &model.User{
+		Name: name,
+	}
+	if has, err := userInfo.GetUser(); err == nil && has {
+		// 存在用户
+		return c.JSON(http.StatusOK, &map[string]string{
+			"name":    userInfo.Name,
+			"email":   userInfo.Email,
+			"access":  string(userInfo.Access),
+			"created": fmt.Sprintf("%d", userInfo.Created.Unix()),
+		})
+	}
+	// 不存在用户
+	return c.String(http.StatusNotFound, "")
 }

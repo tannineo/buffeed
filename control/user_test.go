@@ -1,7 +1,9 @@
 package control_test
 
 import (
+	"net/http"
 	"net/http/httptest"
+	"os"
 	"strings"
 	"testing"
 
@@ -24,14 +26,17 @@ func TestMain(m *testing.M) {
 	// before
 
 	// run test
-	m.Run()
+	result := m.Run()
 
 	// after
 	model.TearDownDB()
+
+	// end
+	os.Exit(result)
 }
 
 // 测试创建用户
-func Test_CreateUser_CountUser(t *testing.T) {
+func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 	// Setup
 	e := echo.New()
 
@@ -65,7 +70,20 @@ func Test_CreateUser_CountUser(t *testing.T) {
 		}, ShouldNotPanic)
 
 		So(rec.Body.String(), ShouldEqual, "1")
+	})
 
+	Convey("Test get user1: cary", t, func() {
+		req := httptest.NewRequest(echo.GET, "/user/cary", nil)
+		rec := httptest.NewRecorder()
+		c := e.NewContext(req, rec)
+
+		So(func() {
+			control.UserCreateUser(c)
+		}, ShouldNotPanic)
+
+		// 验证用户获取成功
+		So(rec.Result().StatusCode, ShouldEqual, http.StatusOK)
+		So(rec.Result().Body, ShouldNotBeEmpty)
 	})
 
 	Convey("Test create user2"+userJSON1, t, func() {
@@ -118,10 +136,5 @@ func Test_CreateUser_CountUser(t *testing.T) {
 		So(err, ShouldBeNil)
 		So(has, ShouldBeFalse)
 	})
-
-}
-
-// TestGetUser 测试获取用户信息
-func TestGetUser(t *testing.T) {
 
 }
