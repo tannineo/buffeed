@@ -40,6 +40,18 @@ func UserCreateUser(c echo.Context) (err error) {
 		return errors.New("invalid email")
 	}
 
+	// 查找重复
+	dupUsers := &[]model.User{}
+	dupUsers, err = (&model.User{
+		Name:  newU.Name,
+		Email: newU.Email,
+	}).FindUserByNameOrEmail()
+	if err != nil {
+		return
+	} else if len(*dupUsers) > 0 {
+		return c.String(http.StatusOK, "user duplicate")
+	}
+
 	// write
 	userModel := model.User{
 		Name:  newU.Name,
@@ -79,4 +91,25 @@ func UserGetUserByName(c echo.Context) (err error) {
 	}
 	// 不存在用户
 	return c.String(http.StatusNotFound, "")
+}
+
+// UserGetAll 获取所有用户
+// 鉴于不太可能有很多用户
+func UserGetAll(c echo.Context) (err error) {
+	var users *[]model.User
+	if users, err = model.AllUsers(); err != nil {
+		return
+	}
+	// 包装
+	var userInfos = make([]map[string]string, 0)
+	for _, v := range *users {
+		c.Logger().Info("name: " + v.Name)
+		userInfos = append(userInfos, map[string]string{
+			"name":    v.Name,
+			"email":   v.Email,
+			"access":  string(v.Access),
+			"created": fmt.Sprintf("%d", v.Created.Unix()),
+		})
+	}
+	return c.JSON(http.StatusOK, userInfos)
 }

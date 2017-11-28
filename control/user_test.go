@@ -35,7 +35,10 @@ func TestMain(m *testing.M) {
 	os.Exit(result)
 }
 
+// TODO: 偷懒把几个接口测试揉在了一起 有空拆开吧
 // 测试创建用户
+// 测试计算用户总数
+// 测试获取单个用户信息
 func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 	// Setup
 	e := echo.New()
@@ -61,7 +64,7 @@ func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 	})
 
 	Convey("Count user 1", t, func() {
-		req := httptest.NewRequest(echo.GET, "/user/count", nil)
+		req := httptest.NewRequest(echo.GET, "/users/count", nil)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 
@@ -106,7 +109,7 @@ func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 	})
 
 	Convey("Count user 2", t, func() {
-		req := httptest.NewRequest(echo.GET, "/user/count", nil)
+		req := httptest.NewRequest(echo.GET, "/users/count", nil)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
 
@@ -137,4 +140,15 @@ func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 		So(has, ShouldBeFalse)
 	})
 
+	Convey("Test get all users' info", t, func() {
+		req := httptest.NewRequest(echo.GET, "/users", nil)
+		rec := httptest.NewRecorder()
+		c := e.NewContext(req, rec)
+
+		So(func() {
+			control.UserGetAll(c)
+		}, ShouldNotPanic)
+
+		So(rec.Body.String(), ShouldNotBeEmpty)
+	})
 }

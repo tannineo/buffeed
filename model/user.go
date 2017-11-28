@@ -87,3 +87,17 @@ func (u *User) ModifyUserByID() (int, error) {
 	affected, err := engine.Id(u.ID).Update(u)
 	return int(affected), err
 }
+
+// FindUserByNameOrEmail 根据name或Email查找用户
+func (u *User) FindUserByNameOrEmail() (*[]User, error) {
+	users := &[]User{}
+	err := engine.Where("user.name = ?", u.Name).Or("user.email = ?", u.Email).Find(users)
+	return users, err
+}
+
+// AllUsers 获取所有用户的信息
+func AllUsers() (*[]User, error) {
+	allUsers := &[]User{}
+	err := engine.Find(allUsers)
+	return allUsers, err
+}
