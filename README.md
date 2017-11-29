@@ -8,10 +8,10 @@ The project is under construction...
 2. Managing - You can collect and tag your favorite items.
 
 # Using...
-[echo](https://github.com/labstack/echo) as the framework.
-[xorm](https://github.com/go-xorm/xorm) with [sqlite3](https://github.com/mattn/go-sqlite3) for data storage.
-[configor](https://github.com/jinzhu/configor) for a [config file](https://github.com/tannineo/buffeed/blob/master/config.json).
-[goconvey](https://github.com/smartystreets/goconvey) for tests.
+- [echo](https://github.com/labstack/echo) as the framework.
+- [xorm](https://github.com/go-xorm/xorm) with [sqlite3](https://github.com/mattn/go-sqlite3) for data storage.
+- [configor](https://github.com/jinzhu/configor) for a [config file](https://github.com/tannineo/buffeed/blob/master/config.json).
+- [goconvey](https://github.com/smartystreets/goconvey) for tests.
 
 ## Notice
 1. Project dependencies are managed with [dep](https://github.com/golang/dep)

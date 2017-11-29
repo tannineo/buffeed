@@ -45,7 +45,7 @@ func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 
 	// Convey
 	Convey("Test create user1"+userJSON1, t, func() {
-		req := httptest.NewRequest(echo.POST, "/user/new", strings.NewReader(userJSON1))
+		req := httptest.NewRequest(echo.POST, "/sginup", strings.NewReader(userJSON1))
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
@@ -90,7 +90,7 @@ func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 	})
 
 	Convey("Test create user2"+userJSON1, t, func() {
-		req := httptest.NewRequest(echo.POST, "/user/new", strings.NewReader(userJSON2))
+		req := httptest.NewRequest(echo.POST, "/sginup", strings.NewReader(userJSON2))
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)
@@ -122,7 +122,7 @@ func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 	})
 
 	Convey("Test create user3f"+userJSON1, t, func() {
-		req := httptest.NewRequest(echo.POST, "/user/new", strings.NewReader(userJSON3f))
+		req := httptest.NewRequest(echo.POST, "/sginup", strings.NewReader(userJSON3f))
 		req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		rec := httptest.NewRecorder()
 		c := e.NewContext(req, rec)

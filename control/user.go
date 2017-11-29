@@ -113,3 +113,26 @@ func UserGetAll(c echo.Context) (err error) {
 	}
 	return c.JSON(http.StatusOK, userInfos)
 }
+
+// ModifyUserAccess 修改用户权限
+func ModifyUserAccess(c echo.Context) (err error) {
+	name := c.Param("name")
+	accessPack := struct {
+		Access string
+	}{}
+	c.Bind(&accessPack)
+	c.Logger().Info(name + " -> " + accessPack.Access)
+	userInfo := &model.User{
+		Name:   name,
+		Access: model.AccessGrade(accessPack.Access),
+	}
+	affected := 0
+	if affected, err = userInfo.ModifyUserByName(); err != nil {
+		return
+	}
+	if affected == 0 {
+		// 用户不存在 修改失败
+		return c.String(http.StatusNotFound, "")
+	}
+	return c.String(http.StatusOK, "OK")
+}

@@ -5,6 +5,7 @@ import (
 
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/tannineo/buffeed/setting"
+	"github.com/tannineo/buffeed/util"
 )
 
 // 没有db操作
@@ -12,7 +13,11 @@ import (
 func Test_Config(t *testing.T) {
 	Convey("Config read from config.json", t, func() {
 		So(setting.Config.Port, ShouldEqual, 4000)
-		So(setting.Config.Salt, ShouldEqual, "")
-		So(setting.Config.DataPath, ShouldEqual, "data.db")
+		So(setting.Config.Salt, ShouldEqual, "233")
+		home, err := util.GetUserHome()
+		if err != nil {
+			panic(err)
+		}
+		So(setting.Config.DataPath, ShouldEqual, home+"/data.db")
 	})
 }

@@ -13,8 +13,9 @@ func Route(e *echo.Echo) {
 	// 大概RESTful
 	// 首页
 	// 用户
-	e.POST("/user/new", control.UserCreateUser)
+	e.POST("/sginup", control.UserCreateUser)
 	e.GET("/user/:name", control.UserGetUserByName)
+	e.POST("/user/:name", control.ModifyUserAccess)
 	e.GET("/users", control.UserGetAll)
 	e.GET("/users/count", control.UserGetUserCount)
 	// feed

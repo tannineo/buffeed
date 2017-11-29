@@ -1,6 +1,7 @@
 package model
 
 import (
+	"errors"
 	"os"
 	"time"
 
@@ -14,7 +15,11 @@ var engine *xorm.Engine
 
 func init() {
 	var err error
-	engine, err = xorm.NewEngine("sqlite3", setting.Config.DataPath)
+	if setting.Config.DataPath == "" {
+		panic(errors.New("empty sqlite3 data path"))
+	} else {
+		engine, err = xorm.NewEngine("sqlite3", setting.Config.DataPath)
+	}
 	if err != nil {
 		// TODO: logging
 		panic(err)

@@ -1,15 +1,27 @@
 package setting
 
-import "github.com/jinzhu/configor"
+import (
+	"github.com/jinzhu/configor"
+	"github.com/tannineo/buffeed/util"
+)
 
 // Config buffeed设置
 var Config = struct {
 	Port     uint   `default:"4000"`
-	Salt     string `default:""`
-	DataPath string `default:"data.db"`
+	Salt     string `default:"233"`
+	DataPath string
 }{}
 
 func init() {
-	// TODO: 如何仅靠代码 区分测试正式环境? 运行测试时?
-	configor.Load(&Config, "config.json")
+	home, err := util.GetUserHome()
+	if err != nil {
+		panic(err)
+	}
+	configor.Load(&Config, home+"/config.json")
+	if Config.DataPath == "" {
+		home, err = util.GetUserHome()
+		if err == nil {
+			Config.DataPath = home + "/data.db"
+		}
+	}
 }
