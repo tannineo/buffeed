@@ -19,4 +19,9 @@ func Route(e *echo.Echo) {
 	e.GET("/users", control.UserGetAll)
 	e.GET("/users/count", control.UserGetUserCount)
 	// feed
+	e.GET("/feeds", control.FeedGetAll)
+	e.POST("/feed", control.FeedCreate)
+	e.DELETE("/feed/:hash", control.FeedDelete)
+	e.GET("/feed/:hash", control.FeedGetOne)
+	e.POST("/feed/:hash", control.FeedModify)
 }

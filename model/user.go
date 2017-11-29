@@ -88,6 +88,12 @@ func (u *User) ModifyUserByID() (int, error) {
 	return int(affected), err
 }
 
+// ModifyUserAccessByID 根据id修改access
+func (u *User) ModifyUserAccessByID() (int, error) {
+	affected, err := engine.Id(u.ID).Cols("access").Update(u)
+	return int(affected), err
+}
+
 // FindUserByNameOrEmail 根据name或Email查找用户
 func (u *User) FindUserByNameOrEmail() (*[]User, error) {
 	users := &[]User{}
@@ -100,11 +106,4 @@ func AllUsers() (*[]User, error) {
 	allUsers := &[]User{}
 	err := engine.Find(allUsers)
 	return allUsers, err
-}
-
-// ModifyUserByName 根据用户昵称(唯一)修改用户信息
-// TODO: 存在根据id修改的方法 这么做合理不合理?
-func (u *User) ModifyUserByName() (int, error) {
-	affected, err := engine.Where("user.name = ?", u.Name).Update(u)
-	return int(affected), err
 }

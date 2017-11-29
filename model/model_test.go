@@ -23,7 +23,9 @@ func TestMain(m *testing.M) {
 
 func Test_InitDB(t *testing.T) {
 	Convey("InitDB...", t, func() {
-		So(model.InitDB(), ShouldBeNil)
+		So(func() {
+			model.NewDB()
+		}, ShouldNotPanic)
 
 		// 删db
 		Reset(func() {

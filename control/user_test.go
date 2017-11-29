@@ -24,6 +24,7 @@ var (
 
 func TestMain(m *testing.M) {
 	// before
+	model.NewDB()
 
 	// run test
 	result := m.Run()

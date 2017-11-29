@@ -123,16 +123,22 @@ func ModifyUserAccess(c echo.Context) (err error) {
 	c.Bind(&accessPack)
 	c.Logger().Info(name + " -> " + accessPack.Access)
 	userInfo := &model.User{
-		Name:   name,
-		Access: model.AccessGrade(accessPack.Access),
+		Name: name,
 	}
-	affected := 0
-	if affected, err = userInfo.ModifyUserByName(); err != nil {
-		return
+	// 获取用户
+	has := false
+	if has, err = userInfo.GetUser(); err == nil && has {
+		userInfo.Access = model.AccessGrade(accessPack.Access)
+		affected := 0
+		if affected, err = userInfo.ModifyUserAccessByID(); err != nil {
+			return
+		}
+		if affected == 0 {
+			// 用户不存在 修改失败
+			return c.String(http.StatusNotFound, "")
+		}
+		return c.String(http.StatusOK, "OK")
 	}
-	if affected == 0 {
-		// 用户不存在 修改失败
-		return c.String(http.StatusNotFound, "")
-	}
-	return c.String(http.StatusOK, "OK")
+	// 不存在用户
+	return c.String(http.StatusNotFound, "")
 }
