@@ -20,6 +20,7 @@ func init() {
 // BasicMeta 基础元信息
 // 创建 更新 删除 乐观锁
 type BasicMeta struct {
+	ID      int64     `xorm:"pk autoincr 'id'"`
 	Version int       `xorm:"version"`
 	Deleted time.Time `xorm:"deleted"`
 	Created time.Time `xorm:"created"`
@@ -57,6 +58,6 @@ func NewDB() {
 	}
 	engine.Sync2(new(User))
 	engine.Sync2(new(Sub))
-	engine.Sync2(new(Brief))
+	engine.Sync2(new(Item))
 	engine.Sync2(new(Tag))
 }

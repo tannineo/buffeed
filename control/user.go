@@ -58,8 +58,11 @@ func UserCreateUser(c echo.Context) (err error) {
 		Pwd:   newU.Pwd,
 		Email: newU.Email,
 	}
-	if err = (&userModel).InsertIn(); err != nil {
+	affected := 0
+	if affected, err = (&userModel).InsertIn(); err != nil {
 		return err
+	} else if affected != 1 {
+		return errors.New("user insert affected row = " + strconv.Itoa(affected))
 	}
 
 	return c.String(http.StatusOK, "OK")
@@ -80,7 +83,8 @@ func UserGetUserByName(c echo.Context) (err error) {
 	userInfo := &model.User{
 		Name: name,
 	}
-	if has, err := userInfo.GetUser(); err == nil && has {
+	has := false
+	if has, err = userInfo.GetUser(); err == nil && has {
 		// 存在用户
 		return c.JSON(http.StatusOK, &map[string]string{
 			"name":    userInfo.Name,

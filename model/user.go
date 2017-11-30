@@ -1,16 +1,12 @@
 package model
 
 import (
-	"errors"
-
 	"github.com/tannineo/buffeed/setting"
 	"github.com/tannineo/buffeed/util"
 )
 
 // User 用户
 type User struct {
-	ID int64 `xorm:"pk autoincr 'id'"`
-
 	Salt string `xorm:"varchar(64) notnull 'salt'"` // Salt 密码加密用
 	Pwd  string `xorm:"varchar(64) notnull 'pwd'"`  // Pwd 密码
 
@@ -29,36 +25,26 @@ type AccessGrade string
 const (
 	Admin  AccessGrade = "admin"  // Admin 管理员
 	Senior             = "senior" // Senior 高级用户
-	Novice             = ""       // Novice 普通用户
+	Novice             = "novice" // Novice 普通用户
 	Banned             = "banned" // banned 被ban用户
 )
 
 // InsertIn 插入user
 // pwd此时未摘要 在当中摘要
-func (u *User) InsertIn() (err error) {
-	// validate
-	switch {
-	case !util.IsNickname(u.Name):
-		return errors.New("invalid nickname")
-	case !util.IsPwd(u.Pwd):
-		return errors.New("invalid password")
-	case !util.IsEmail(u.Email):
-		return errors.New("invalid email")
-	}
-
+func (u *User) InsertIn() (int, error) {
+	// TODO: 有必要在model再次做一次验证?
 	u.Salt = setting.Config.Salt
 	u.Pwd = util.GetMd5String(u.Pwd)
-	count := 0
 	u.Access = Novice
-	if count, err = CountUsers(); err != nil {
-		return
+	if count, err := CountUsers(); err != nil {
+		return 0, err
 	} else if count == 0 {
 		u.Access = Admin
 	}
 
 	// insert
-	engine.Insert(u)
-	return
+	affected, err := engine.Insert(u)
+	return int(affected), err
 }
 
 // CountUsers 未删除的用户数
@@ -78,6 +64,7 @@ func (u *User) GetUser() (has bool, err error) {
 func (u *User) DeleteUserByID() (int, error) {
 	affected, err := engine.Id(u.ID).Delete(u)
 	// TODO: affected row 强转 int 在很多很多很多很多...行时会出bug...?
+	// 还有许多地方存在这种代码 review 和 重构要注意
 	// 其他也是同理
 	return int(affected), err
 }

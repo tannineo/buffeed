@@ -56,9 +56,8 @@ func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 		}, ShouldNotPanic)
 
 		// 验证用户插入成功
-		userCond := &model.User{
-			ID: 1,
-		}
+		userCond := &model.User{}
+		userCond.ID = 1
 		has, err := userCond.GetUser()
 		So(err, ShouldBeNil)
 		So(has, ShouldBeTrue)
@@ -101,9 +100,8 @@ func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 		}, ShouldNotPanic)
 
 		// 验证用户插入成功
-		userCond := &model.User{
-			ID: 2,
-		}
+		userCond := &model.User{}
+		userCond.ID = 2
 		has, err := userCond.GetUser()
 		So(err, ShouldBeNil)
 		So(has, ShouldBeTrue)
@@ -133,9 +131,8 @@ func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 		}, ShouldNotPanic)
 
 		// 验证用户插入失败
-		userCond := &model.User{
-			ID: 3,
-		}
+		userCond := &model.User{}
+		userCond.ID = 3
 		has, err := userCond.GetUser()
 		So(err, ShouldBeNil)
 		So(has, ShouldBeFalse)
