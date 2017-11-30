@@ -3,19 +3,24 @@ package model
 import (
 	"github.com/tannineo/buffeed/setting"
 	"github.com/tannineo/buffeed/util"
+	"time"
 )
 
 // User 用户
 type User struct {
+	ID      int64     `xorm:"pk autoincr 'id'"`
+	Version int       `xorm:"version"`
+	Deleted time.Time `xorm:"deleted"`
+	Created time.Time `xorm:"created"`
+	Updated time.Time `xorm:"updated"`
+
 	Salt string `xorm:"varchar(64) notnull 'salt'"` // Salt 密码加密用
 	Pwd  string `xorm:"varchar(64) notnull 'pwd'"`  // Pwd 密码
 
 	Name  string `xorm:"varchar(64) notnull unique 'name'"`   // Name nickname 昵称
 	Email string `xorm:"varchar(128) notnull unique 'email'"` // Email 邮件地址
 
-	Access AccessGrade `xorm:"varchar(64) notnull 'access'"` // Access 访问等级 TODO:字符串常量定义
-
-	BasicMeta `xorm:"extends"`
+	Access AccessGrade `xorm:"varchar(64) notnull 'access'"` // Access 访问等级
 }
 
 // AccessGrade 访问级别

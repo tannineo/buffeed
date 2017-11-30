@@ -3,7 +3,6 @@ package control_test
 import (
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"strings"
 	"testing"
 
@@ -22,26 +21,13 @@ var (
 {"name":"whatthepwd","email":"bbindream@qq.com","pwd":"大家308hd08h"}`
 )
 
-func TestMain(m *testing.M) {
-	// before
-	model.NewDB()
-
-	// run test
-	result := m.Run()
-
-	// after
-	model.TearDownDB()
-
-	// end
-	os.Exit(result)
-}
-
 // TODO: 偷懒把几个接口测试揉在了一起 有空拆开吧
 // 测试创建用户
 // 测试计算用户总数
 // 测试获取单个用户信息
 func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 	// Setup
+	model.NewDB()
 	e := echo.New()
 
 	// Convey
@@ -149,4 +135,6 @@ func Test_CreateUser_CountUser_GetUser(t *testing.T) {
 
 		So(rec.Body.String(), ShouldNotBeEmpty)
 	})
+
+	model.TearDownDB()
 }
