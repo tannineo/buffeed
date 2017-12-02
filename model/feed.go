@@ -16,8 +16,8 @@ type Feed struct {
 	UserName string `xorm:"varchar(64) not null 'user_name'"` // 创建用户昵称
 
 	Alias    string `xorm:"varchar(64) 'alias'"`               // Alias feed别称
-	Link     string `xorm:"varchar(128) not null 'link'"`      // FeedURL feed地址
-	JumpLink string `xorm:"varchar(128) not null 'jump_link'"` // URL 跳转地址
+	Link     string `xorm:"varchar(256) not null 'link'"`      // FeedURL feed地址
+	JumpLink string `xorm:"varchar(256) not null 'jump_link'"` // URL 跳转地址
 
 	LastFetch time.Time `xorm:"'last_fetch'"` // LastFetch 最后一次更新
 }
@@ -36,7 +36,7 @@ func (f *Feed) GetFeed() (has bool, err error) {
 	return
 }
 
-// InsertIn 插入sub
+// InsertIn 插入Feed
 func (f *Feed) InsertIn() (int, error) {
 	affected, err := engine.Insert(f)
 	return int(affected), err

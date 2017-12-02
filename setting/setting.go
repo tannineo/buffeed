@@ -7,9 +7,10 @@ import (
 
 // Config buffeed设置
 var Config = struct {
-	Port     uint   `default:"4000"`
-	Salt     string `default:"233"`
-	DataPath string
+	Port     uint   `default:"4000"` // Port 占用端口
+	Salt     string `default:"233"`  // Salt 密码摘要时用
+	DataPath string // DataPath db存放路径
+	Interval int    `default:"10"` // Interval feed拉取间隔 单位是minute
 }{}
 
 func init() {
