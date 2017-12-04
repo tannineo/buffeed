@@ -39,7 +39,7 @@ func NewDB() {
 	if setting.Config.DataPath == "" {
 		panic(errors.New("empty sqlite3 data path"))
 	} else {
-		engine, err = xorm.NewEngine("sqlite3", setting.Config.DataPath)
+		engine, err = xorm.NewEngine("sqlite3", "file::memory:?mode=memory")
 	}
 	if err != nil {
 		// TODO: logging
@@ -47,6 +47,6 @@ func NewDB() {
 	}
 	engine.Sync2(new(User))
 	engine.Sync2(new(Feed))
-	engine.Sync2(new(Item))
+	engine.Sync2(new(FeedItem))
 	engine.Sync2(new(Tag))
 }

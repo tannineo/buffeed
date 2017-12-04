@@ -25,17 +25,23 @@ var testModel1 = model.Feed{
 func Test_GetFeedItems(t *testing.T) {
 	// setup
 	model.NewDB()
-	testModel1.InsertIn()
+
+	Convey("setup insert", t, func() {
+		affected, err := testModel1.InsertIn()
+		So(affected, ShouldEqual, 1)
+		So(err, ShouldBeNil)
+	})
+
 	e := echo.New()
 
 	Convey("Test get feed items for "+feedURL1, t, func() {
 		task.GetFeedItems(testModel1.ID, testModel1.Link, e.Logger)
 
 		// db验证
-		itemCond := &model.Item{
+		itemCond := &model.FeedItem{
 			FeedID: 1,
 		}
-		items, err := itemCond.FindAllItemsByFeedID()
+		items, err := itemCond.FindAllItemsByFeedIDLimit(0, 10)
 
 		So(err, ShouldBeNil)
 		So(items, ShouldNotBeEmpty)

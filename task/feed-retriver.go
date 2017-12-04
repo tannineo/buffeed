@@ -50,7 +50,7 @@ func GetFeedItems(feedID int64, link string, log echo.Logger) {
 		log.Info(strconv.Itoa(i) + " : " + v.Title + " |:| " + v.Content)
 		// 写入db TODO: 没有有效的唯一标识item方法 用发布时间 published 替代
 		// 插入前的重复验证
-		newItem := &model.Item{
+		newItem := &model.FeedItem{
 			FeedID:    feedID,
 			FeedLink:  link,
 			Title:     v.Title,
@@ -65,7 +65,7 @@ func GetFeedItems(feedID int64, link string, log echo.Logger) {
 			continue
 		}
 		// 插入
-		newItem = &model.Item{
+		newItem = &model.FeedItem{
 			FeedID:    feedID,
 			FeedLink:  link,
 			Title:     v.Title,

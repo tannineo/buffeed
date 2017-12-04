@@ -24,4 +24,7 @@ func Route(e *echo.Echo) {
 	e.DELETE("/feed/:hash", control.FeedDelete)
 	e.GET("/feed/:hash", control.FeedGetOne)
 	e.POST("/feed/:hash", control.FeedModify)
+	// item
+	e.GET("/items", control.ItemGetAllLimit)
+	e.GET("/feed/:hash/items", control.ItemGetAllLimitByFeed)
 }

@@ -3,7 +3,7 @@ package model
 import "time"
 
 // Item 每一篇文章的简要实体
-type Item struct {
+type FeedItem struct {
 	ID      int64     `xorm:"pk autoincr 'id'"`
 	Version int       `xorm:"version"`
 	Deleted time.Time `xorm:"deleted"`
@@ -20,18 +20,26 @@ type Item struct {
 	Content   string    `xorm:"varchar(4096) 'content'"` // Content 内容
 }
 
-// InsertIn 插入Feed
-func (i *Item) InsertIn() (int, error) {
-	affected, err := engine.Insert(i)
+// InsertIn 插入FeedItem
+func (f *FeedItem) InsertIn() (int, error) {
+	affected, err := engine.Insert(f)
 	return int(affected), err
 }
 
-func (i *Item) GetItem() (has bool, err error) {
+// GetItem 根据条件获取单挑item
+func (i *FeedItem) GetItem() (has bool, err error) {
 	has, err = engine.Get(i)
 	return
 }
 
-func (i *Item) FindAllItemsByFeedID() (items []Item, err error) {
-	err = engine.Where("item.feed_id = ?", i.FeedID).Find(&items)
+// FindAllItemsLimit 分页获取所有feed的items 以published作为排序
+func FindAllItemsLimit(startRow, limitRow int) (items []FeedItem, err error) {
+	err = engine.Desc("published").Limit(limitRow, startRow).Find(&items)
+	return
+}
+
+// FindAllItemsByFeedIDLimit 根据feedID分页获取items 以published作为排序
+func (i *FeedItem) FindAllItemsByFeedIDLimit(startRow, limitRow int) (items []FeedItem, err error) {
+	err = engine.Where("feed_item.feed_id = ?", i.FeedID).Desc("published").Limit(limitRow, startRow).Find(&items)
 	return
 }

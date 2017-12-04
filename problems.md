@@ -12,3 +12,5 @@
 4. Feed 普遍存在两个标准 RSS2.0 Atom
   - 我看了下github private feed 没有GUID这个唯一标示(Atom)
   - 如果item指向的文章变动...? 简单有效地侦测出来?
+5. sqlite3 文件写入慢的要死 读可并发但写不行 写入goroutine过多db就会变成readonly 典型的情况是测试!  
+  - 暂时使用`:memory:` 而且不share 多个test之间db独立 不受影响
