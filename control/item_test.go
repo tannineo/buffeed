@@ -2,7 +2,6 @@ package control_test
 
 import (
 	"net/http/httptest"
-	"strings"
 	"testing"
 
 	"github.com/labstack/echo"
@@ -20,8 +19,7 @@ func Test_ItemGetAllLimit(t *testing.T) {
 	// Setup
 	model.NewDB()
 	e := echo.New()
-	req := httptest.NewRequest(echo.GET, "/items", strings.NewReader(pageJSON))
-	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	req := httptest.NewRequest(echo.GET, "/items?start=0&size=10", nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
 
@@ -45,8 +43,7 @@ func Test_ItemGetAllLimitByFeed(t *testing.T) {
 	// Setup
 	model.NewDB()
 	e := echo.New()
-	req := httptest.NewRequest(echo.GET, "/feed/"+testModel1.Hash+"/items", strings.NewReader(pageJSON))
-	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	req := httptest.NewRequest(echo.GET, "/feed/"+testModel1.Hash+"/items?start=0&size=10", nil)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
 
